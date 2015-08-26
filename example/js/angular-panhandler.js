@@ -1,6 +1,6 @@
-/*! angular-panhandler - v1.1.1 - 2015-08-07
+/*! angular-panhandler - v1.1.2 - 2015-08-26
 * Copyright (c) 2015 ; Licensed MIT %> */
-/*! angular-panhandler - v1.1.1 - 2015-08-07
+/*! angular-panhandler - v1.1.2 - 2015-08-26
 * Copyright (c) 2015 ; Licensed MIT %> */
 (function(){
   'use strict';
@@ -125,10 +125,18 @@
           window.cancelAnimationFrame(this.loop);
         },
         positionFromEvent: function(e){
-          return [
-            e.pageX || e.originalEvent.touches[0].pageX,
-            e.pageY || e.originalEvent.touches[0].pageY
-          ];
+          if(e.hasOwnProperty('originalEvent')){
+            return [
+              e.pageX || e.originalEvent.touches[0].pageX,
+              e.pageY || e.originalEvent.touches[0].pageY
+            ];
+          }
+          else{
+            return [
+              e.pageX || e.touches[0].pageX,
+              e.pageY || e.touches[0].pageY
+            ];
+          }
         },
         makeInteractive: function(){
           this.draggable.on(this.downEvent,this.startBind);
